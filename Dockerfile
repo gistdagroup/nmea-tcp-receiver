@@ -7,5 +7,5 @@ RUN mkdir -p /apps
 WORKDIR /apps
 ADD . /apps
 
-EXPOSE 9000
+EXPOSE 3000
 CMD node tcp.js

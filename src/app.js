@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 function listen () {
-  server.listen(3000, () => {
+  server.listen(port, () => {
     logger.info('TCP started on port ' + port)
   })
 }
