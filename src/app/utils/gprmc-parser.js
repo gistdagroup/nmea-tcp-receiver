@@ -3,24 +3,27 @@
 import * as nmea from '~/app/utils/nmea'
 
 export const parse = (message) => {
-  message = message.replace('\n', '')
-  message = message.replace('\r', '')
+  message = message.replace(/\\?\\n/g, '')
+  message = message.replace(/\\?\\r/g, '')
   if (message === '') return null
   let result = {}
   let fields = message.split(',')
-
-  result.messageId = fields[0]
-  result.date = parseDate(fields[9], fields[1])
-  result.status = fields[2]
-  result.coord = {
-    lng: nmea.toDecimal(parseDouble(fields[5]), fields[6]),
-    lat: nmea.toDecimal(parseDouble(fields[3]), fields[4])
+  try {
+    result.messageId = fields[0]
+    result.date = parseDate(fields[9], fields[1])
+    result.status = fields[2]
+    result.coord = {
+      lng: nmea.toDecimal(parseDouble(fields[5]), fields[6]),
+      lat: nmea.toDecimal(parseDouble(fields[3]), fields[4])
+    }
+    result.sog = parseDouble(fields[7])
+    result.cog = parseDouble(fields[8])
+    result.velocity = parseDouble(fields[10])
+    result.mv = fields[11]
+    result.checksum = fields[12]
+  } catch (err) {
+    result = null
   }
-  result.sog = parseDouble(fields[7])
-  result.cog = parseDouble(fields[8])
-  result.velocity = parseDouble(fields[10])
-  result.mv = fields[11]
-  result.checksum = fields[12]
   return result
 }
 

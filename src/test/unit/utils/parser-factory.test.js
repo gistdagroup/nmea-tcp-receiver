@@ -23,9 +23,15 @@ describe('Parser Factory', () => {
   })
 
   it('should parse with raw parser from message', () => {
-    let parsed = factory.parse('XXX')
+    let parsed = factory.parse('GPGSV,2,2,06,19,33,122,39,20,37,256,36,,,,,,,,,1*63')
 
-    assert.equal(parsed.message, 'XXX')
+    assert.equal(parsed.message, 'GPGSV,2,2,06,19,33,122,39,20,37,256,36,,,,,,,,,1*63')
     assert.equal(parsed.messageId, factory.RAW)
+  })
+
+  it('should get null0 from unknow message', () => {
+    let parsed = factory.parse('xxx')
+
+    assert.equal(parsed, null)
   })
 })
