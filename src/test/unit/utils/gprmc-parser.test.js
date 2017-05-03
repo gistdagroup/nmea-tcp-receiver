@@ -6,7 +6,7 @@ import * as parser from '~/app/utils/gprmc-parser.js'
 import assert from 'assert'
 const message = 'GPRMC,161141.00,A,1305.9916182,N,10055.6519622,E,0.25,352.96,250417,0.0,E,A*39'
 
-describe('gpmrc-parser', () => {
+describe('GPRMC-parser', () => {
   describe('parse message Id', () => {
     it('should get message id from message', () => {
       let expected = 'GPRMC'
@@ -74,12 +74,34 @@ describe('gpmrc-parser', () => {
     })
   })
 
+  describe('parse velocity', () => {
+    it('should get velocity from message', () => {
+      let expected = 0
+
+      let data = parser.parse(message)
+      let actual = data.velocity
+
+      assert.equal(actual, expected)
+    })
+  })
+
   describe('parse Magnetic Variation', () => {
     it('should get Course Over Ground from message', () => {
       let expected = 'E'
 
       let data = parser.parse(message)
       let actual = data.mv
+
+      assert.equal(actual, expected)
+    })
+  })
+
+  describe('parse checksum', () => {
+    it('should get checksum from message', () => {
+      let expected = 'A*39'
+
+      let data = parser.parse(message)
+      let actual = data.checksum
 
       assert.equal(actual, expected)
     })

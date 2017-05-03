@@ -18,7 +18,9 @@ export const parse = (message) => {
   }
   result.sog = parseDouble(fields[7])
   result.cog = parseDouble(fields[8])
+  result.velocity = parseDouble(fields[10])
   result.mv = fields[11]
+  result.checksum = fields[12]
   return result
 }
 
