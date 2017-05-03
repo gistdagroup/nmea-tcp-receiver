@@ -12,7 +12,7 @@ const messages2 = 'A,1305.9913985,N,10055.6518978,E,0.11,352.96,250417,0.0,E,A*3
 
 const deviceId = '1'
 
-describe('gps-parser', () => {
+describe('Gps controller', () => {
   it('should parse messages 1', () => {
     let datas = controller.onReceive(messages, deviceId)
 
