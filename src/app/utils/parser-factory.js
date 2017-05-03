@@ -4,8 +4,9 @@ import * as gpgga from '~/app/utils/gpgga-parser'
 import * as gprmc from '~/app/utils/gprmc-parser'
 import * as raw from '~/app/utils/raw-parser'
 
-const GPGGA = 'GPGGA'
-const GPRMC = 'GPRMC'
+export const GPGGA = 'GPGGA'
+export const GPRMC = 'GPRMC'
+export const RAW = 'RAW'
 
 export const parse = (message) => {
   message = message.replace('\n', '')

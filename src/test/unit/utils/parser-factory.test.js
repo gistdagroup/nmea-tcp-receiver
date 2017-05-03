@@ -25,7 +25,7 @@ describe('Parser Factory', () => {
   it('should parse with raw parser from message', () => {
     let parsed = factory.parse('XXX')
 
-    assert.equal(parsed.raw, 'XXX')
-    assert.equal(parsed.messageId, undefined)
+    assert.equal(parsed.message, 'XXX')
+    assert.equal(parsed.messageId, factory.RAW)
   })
 })
