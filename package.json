@@ -24,7 +24,7 @@
   },
   "scripts": {
     "build": "BABEL_ENV=production babel src -d dist --copy-files --ignore *.test.js",
-    "start": "cd dist && NODE_ENV=development node app.js",
+    "start": "npm run build && cd dist && NODE_ENV=development node app.js",
     "prod": "cd dist && NODE_ENV=production node app.js",
     "staging": "cd dist && NODE_ENV=staging node app.js",
     "docker": "cd dist && NODE_ENV=docker node app.js",
