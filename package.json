@@ -5,6 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "mockgoose": "^7.1.1",
+    "moment": "^2.18.1",
     "mongoose": "^4.9.4",
     "universal-analytics": "^0.4.13",
     "winston": "^2.3.1"
