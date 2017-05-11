@@ -2,3 +2,5 @@ dist/*
 node_modules/*
 src/coverage/*
 data
+deploy_rsa
+deploy_rsa.pub
