@@ -1,5 +1,7 @@
 dist: trusty
 sudo: required
+addons:
+  ssh_known_hosts: gps.gistda.org
 language: node_js
 services:
   - docker
