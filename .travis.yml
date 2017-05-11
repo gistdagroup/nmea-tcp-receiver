@@ -1,0 +1,22 @@
+dist: trusty
+sudo: required
+language: node_js
+services:
+  - docker
+node_js:
+  - "7"
+env:
+  - NODE_ENV=test
+before_install:
+  - npm install -g codecov
+install:
+  - npm install
+before_script:
+  - npm test
+  - npm run coverage
+  - codecov --token=$CODECOV_TOKEN
+script:
+  - docker build -t gistda/nmea-tcp-receiver .
+after_success:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - docker push gistda/nmea-tcp-receiver
