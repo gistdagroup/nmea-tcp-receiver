@@ -62,7 +62,7 @@ async function onConnData(msg){
   let datas = controller.onReceive(msg, deviceId)
   controller.save(datas)
 
-  visitor.pageview('/nmea').send()
+  visitor.pageview('/tcp-' + deviceId).send()
 }
 
 server.on('listening', () => {
