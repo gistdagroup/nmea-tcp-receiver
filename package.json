@@ -29,7 +29,7 @@
     "prod": "cd dist && NODE_ENV=production node app.js",
     "staging": "cd dist && NODE_ENV=staging node app.js",
     "docker": "cd dist && NODE_ENV=docker node app.js",
-    "test": "cd src && NODE_ENV=test mocha --compilers js:babel-register test --recursive",
+    "test": "cd src && NODE_ENV=test mocha --timeout 120000 --compilers js:babel-register test --recursive",
     "test:watch": "nodemon --exec npm test",
     "coverage": "cd src && NODE_ENV=test babel-node ../node_modules/.bin/babel-istanbul cover --report lcovonly _mocha -- test --recursive"
   },
