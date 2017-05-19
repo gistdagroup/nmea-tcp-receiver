@@ -8,11 +8,11 @@ const mockgoose = new Mockgoose(mongoose)
 
 import assert from 'assert'
 import config from '~/config/config'
-import Gpgga from '~/app/models/gpgga'
+import Location from '~/app/models/location'
 
 mongoose.Promise = global.Promise
 
-describe('Gpgga Model', () => {
+describe('Location Model', () => {
   before(async () => {
     await mockgoose.prepareStorage()
     await mongoose.connect(config.db)
@@ -26,11 +26,13 @@ describe('Gpgga Model', () => {
     await mockgoose.helper.reset()
   })
 
-  it('should save gpgga success', async () => {
-    let model = await new Gpgga({deviceId: 1,
+  it('should save location success', async () => {
+    let model = await new Location({ type: 'GPRMC',
       date: new Date(),
-      coord: {lng: 1.0, lat: 1.0}
-    }).save()
-    assert.equal(model.deviceId, 1)
+      coord: { lng: 100.92753163, lat: 13.099856641666667 },
+      vehical: '1',
+      hdop: null }
+    ).save()
+    assert.equal(model.vehical, '1')
   })
 })

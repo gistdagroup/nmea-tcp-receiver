@@ -1,7 +1,6 @@
 'use strict'
 
-import mongoose from 'mongoose'
-const Schema = mongoose.Schema
+import mongoose, { Schema } from 'mongoose'
 
 const GpggaSchema = new Schema({
   deviceId: { type: String, required: true },

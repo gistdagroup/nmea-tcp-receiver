@@ -16,7 +16,7 @@ module.exports = {
     level: 'warn'
   },
   db: {
-    uri: 'mongodb://localhost:27017/gistda',
+    uri: 'mongodb://0.0.0.0:27017/gistda',
     options: {
       server: {
         socketOptions: { keepAlive: 1 }
