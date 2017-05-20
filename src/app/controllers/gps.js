@@ -64,9 +64,9 @@ let saveGprmc = async (data) => {
   let promises = []
   promises.push(new Gprmc(data).save())
 
-  let vehical = await getVehicalFromDeviceId(data.deviceId)
-  let location = {type: parser.GPRMC, date: data.date, coord: data.coord, vehical: vehical, hdop: null}
-  promises.push(new Location(location).save())
+  // let vehical = await getVehicalFromDeviceId(data.deviceId)
+  // let location = {type: parser.GPRMC, date: data.date, coord: data.coord, vehical: vehical, hdop: null}
+  // promises.push(new Location(location).save())
   return promises
 }
 
