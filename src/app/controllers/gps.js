@@ -27,12 +27,15 @@ export const onReceive = (message, deviceId) => {
   return datas
 }
 
-export const save = async (datas) => {
+export const save = async(datas) => {
+  let isSaveFirstLocation = null
   let promises = []
   for (let data of datas) {
     switch (data.messageId) {
       case parser.GPGGA:
-        promises = promises.concat(await saveGpgga(data))
+        let saved = await saveGpgga(data, isSaveFirstLocation)
+        promises = promises.concat(saved.promises)
+        isSaveFirstLocation = saved.isSaveFirstLocation
         break
       case parser.GPRMC:
         promises = promises.concat(await saveGprmc(data))
@@ -45,17 +48,19 @@ export const save = async (datas) => {
   await Promise.all(promises)
 }
 
-let saveGpgga = async (data) => {
+let saveGpgga = async(data, isSaveFirstLocation) => {
   visitor.event('Location', 'Send', 'GPGGA', data.coord).send()
 
   let promises = []
   promises.push(new Gpgga(data).save())
 
-  let vehical = await getVehicalFromDeviceId(data.deviceId)
-  let location = {type: parser.GPGGA, date: data.date, coord: data.coord, vehical: vehical, hdop: data.hdop}
-  promises.push(new Location(location).save())
-
-  return promises
+  if (!isSaveFirstLocation) {
+    let vehical = await getVehicalFromDeviceId(data.deviceId)
+    let location = {type: parser.GPGGA, date: data.date, coord: data.coord, vehical: vehical, hdop: data.hdop}
+    isSaveFirstLocation = true
+    promises.push(new Location(location).save())
+  }
+  return {promises: promises, isSaveFirstLocation: isSaveFirstLocation}
 }
 
 let saveGprmc = async (data) => {

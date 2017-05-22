@@ -20,6 +20,41 @@ const messages2 = 'A,1305.9913985,N,10055.6518978,E,0.11,352.96,250417,0.0,E,A*3
 
 const deviceId = '1'
 
+const multipleDataJson = [{
+  messageId: 'GPGGA',
+  date: new Date(),
+  coord: {lng: 100.92753163, lat: 13.099856641666667},
+  positionFixIndicator: 1,
+  satellitesUsed: 7,
+  hdop: 1,
+  mslAltitude: 37.966,
+  geoidSeparation: -29.453,
+  checksum: '*5C',
+  deviceId
+}, {
+  messageId: 'GPGGA',
+  date: new Date(),
+  coord: {lng: 100.92753163, lat: 13.099856641666667},
+  positionFixIndicator: 1,
+  satellitesUsed: 7,
+  hdop: 1,
+  mslAltitude: 37.966,
+  geoidSeparation: -29.453,
+  checksum: '*5C',
+  deviceId
+}, {
+  messageId: 'GPRMC',
+  date: new Date(),
+  status: 'A',
+  coord: {lng: 100.92753163, lat: 13.099856641666667},
+  sog: 0.11,
+  cog: 352.96,
+  velocity: 0,
+  mv: 'E',
+  checksum: 'A*3E',
+  deviceId: '1'
+}]
+
 describe('Gps controller', () => {
   before(async() => {
     await mockgoose.prepareStorage()
@@ -134,6 +169,13 @@ describe('Gps controller', () => {
       }]
 
       await controller.save(datas)
+
+      let count = await Location.count({})
+      assert.equal(count, 1)
+    })
+
+    it('should save only one location from full message success', async() => {
+      await controller.save(multipleDataJson)
 
       let count = await Location.count({})
       assert.equal(count, 1)
