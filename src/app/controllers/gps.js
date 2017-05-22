@@ -8,6 +8,9 @@ import Location from '~/app/models/location'
 import Device from '~/app/models/device'
 import Raw from '~/app/models/raw'
 import ua from 'universal-analytics'
+import * as utils from '~/app/utils/utils'
+import moment from 'moment'
+
 const visitor = ua('UA-97830439-1')
 
 export const onReceive = (message, deviceId) => {
@@ -56,9 +59,13 @@ let saveGpgga = async(data, isSaveFirstLocation) => {
 
   if (!isSaveFirstLocation) {
     let vehical = await getVehicalFromDeviceId(data.deviceId)
-    let location = {type: parser.GPGGA, date: data.date, coord: data.coord, vehical: vehical, hdop: data.hdop}
-    isSaveFirstLocation = true
-    promises.push(new Location(location).save())
+    let hash = utils.createLocationHash(data)
+    let location = await Location.findOne({hash: hash})
+    if (!location) {
+      location = {type: parser.GPGGA, date: data.date, coord: data.coord, vehical: vehical, hdop: data.hdop, hash: hash}
+      isSaveFirstLocation = true
+      promises.push(new Location(location).save())
+    }
   }
   return {promises: promises, isSaveFirstLocation: isSaveFirstLocation}
 }

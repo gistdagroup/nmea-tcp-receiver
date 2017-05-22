@@ -46,40 +46,6 @@ const gpggaDataJson = [{
   deviceId: '1'
 }]
 
-const multipleDataJson = [{
-  messageId: 'GPGGA',
-  date: new Date(),
-  coord: {lng: 100.92753163, lat: 13.099856641666667},
-  positionFixIndicator: 1,
-  satellitesUsed: 7,
-  hdop: 1,
-  mslAltitude: 37.966,
-  geoidSeparation: -29.453,
-  checksum: '*5C',
-  deviceId
-}, {
-  messageId: 'GPGGA',
-  date: new Date(),
-  coord: {lng: 100.92753163, lat: 13.099856641666667},
-  positionFixIndicator: 1,
-  satellitesUsed: 7,
-  hdop: 1,
-  mslAltitude: 37.966,
-  geoidSeparation: -29.453,
-  checksum: '*5C',
-  deviceId
-}, {
-  messageId: 'GPRMC',
-  date: new Date(),
-  status: 'A',
-  coord: {lng: 100.92753163, lat: 13.099856641666667},
-  sog: 0.11,
-  cog: 352.96,
-  velocity: 0,
-  mv: 'E',
-  checksum: 'A*3E',
-  deviceId: '1'
-}]
 
 describe('Gps controller', () => {
   before(async() => {
@@ -149,10 +115,56 @@ describe('Gps controller', () => {
     })
 
     it('should save only one location from full message success', async() => {
-      await controller.save(multipleDataJson)
+      await controller.save(createMulitMessageWithDate(new Date()))
+
+      let count = await Location.count({})
+      assert.equal(count, 1)
+    })
+
+    it('should save only one location per minute', async() => {
+      let now = new Date()
+      await controller.save(createMulitMessageWithDate(now))
+      await controller.save(createMulitMessageWithDate(now))
 
       let count = await Location.count({})
       assert.equal(count, 1)
     })
   })
 })
+
+let createMulitMessageWithDate = (date1, date2 = date1, date3 = date1) => {
+  return [{
+    messageId: 'GPGGA',
+    date: date1,
+    coord: {lng: 100.92753163, lat: 13.099856641666667},
+    positionFixIndicator: 1,
+    satellitesUsed: 7,
+    hdop: 1,
+    mslAltitude: 37.966,
+    geoidSeparation: -29.453,
+    checksum: '*5C',
+    deviceId
+  }, {
+    messageId: 'GPGGA',
+    date: date2,
+    coord: {lng: 100.92753163, lat: 13.099856641666667},
+    positionFixIndicator: 1,
+    satellitesUsed: 7,
+    hdop: 1,
+    mslAltitude: 37.966,
+    geoidSeparation: -29.453,
+    checksum: '*5C',
+    deviceId
+  }, {
+    messageId: 'GPRMC',
+    date: date3,
+    status: 'A',
+    coord: {lng: 100.92753163, lat: 13.099856641666667},
+    sog: 0.11,
+    cog: 352.96,
+    velocity: 0,
+    mv: 'E',
+    checksum: 'A*3E',
+    deviceId: '1'
+  }]
+}
