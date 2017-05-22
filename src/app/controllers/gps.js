@@ -63,7 +63,7 @@ let saveGpgga = async(data, isSaveFirstLocation) => {
   return {promises: promises, isSaveFirstLocation: isSaveFirstLocation}
 }
 
-let saveGprmc = async (data) => {
+let saveGprmc = async(data) => {
   visitor.event('Location', 'Send', 'GPRMC', data.coord).send()
 
   let promises = []
@@ -75,7 +75,7 @@ let saveGprmc = async (data) => {
   return promises
 }
 
-let getVehicalFromDeviceId = async (deviceId) => {
+let getVehicalFromDeviceId = async(deviceId) => {
   let vehical = null
   let device = await Device.findOne({name: deviceId})
   if (device) {
