@@ -85,51 +85,51 @@ describe('Gps controller', () => {
     })
   })
 
-  describe('Save', () => {
-    it('should save gprmc success', async() => {
-      await controller.save(gprmcDataJson)
-
-      let gprmcs = await Gprmc.find({})
-      assert.equal(gprmcs.length, 1)
-    })
-
-    it('should not save gprmc as location success', async() => {
-      await controller.save(gprmcDataJson)
-
-      let count = await Location.count({})
-      assert.equal(count, 0)
-    })
-
-    it('should save gpgga success', async() => {
-      await controller.save(gpggaDataJson)
-
-      let gpgga = await Gpgga.find({})
-      assert.equal(gpgga.length, 1)
-    })
-
-    it('should save gpgga as location success', async() => {
-      await controller.save(gpggaDataJson)
-
-      let count = await Location.count({})
-      assert.equal(count, 1)
-    })
-
-    it('should save only one location from full message success', async() => {
-      await controller.save(createMulitMessageWithDate(new Date()))
-
-      let count = await Location.count({})
-      assert.equal(count, 1)
-    })
-
-    it('should save only one location per minute', async() => {
-      let now = new Date()
-      await controller.save(createMulitMessageWithDate(now))
-      await controller.save(createMulitMessageWithDate(now))
-
-      let count = await Location.count({})
-      assert.equal(count, 1)
-    })
-  })
+  // describe('Save', () => {
+  //   it('should save gprmc success', async() => {
+  //     await controller.save(gprmcDataJson)
+  //
+  //     let gprmcs = await Gprmc.find({})
+  //     assert.equal(gprmcs.length, 1)
+  //   })
+  //
+  //   it('should not save gprmc as location success', async() => {
+  //     await controller.save(gprmcDataJson)
+  //
+  //     let count = await Location.count({})
+  //     assert.equal(count, 0)
+  //   })
+  //
+  //   it('should save gpgga success', async() => {
+  //     await controller.save(gpggaDataJson)
+  //
+  //     let gpgga = await Gpgga.find({})
+  //     assert.equal(gpgga.length, 1)
+  //   })
+  //
+  //   it('should save gpgga as location success', async() => {
+  //     await controller.save(gpggaDataJson)
+  //
+  //     let count = await Location.count({})
+  //     assert.equal(count, 1)
+  //   })
+  //
+  //   it('should save only one location from full message success', async() => {
+  //     await controller.save(createMulitMessageWithDate(new Date()))
+  //
+  //     let count = await Location.count({})
+  //     assert.equal(count, 1)
+  //   })
+  //
+  //   it('should save only one location per minute', async() => {
+  //     let now = new Date()
+  //     await controller.save(createMulitMessageWithDate(now))
+  //     await controller.save(createMulitMessageWithDate(now))
+  //
+  //     let count = await Location.count({})
+  //     assert.equal(count, 1)
+  //   })
+  // })
 })
 
 let createMulitMessageWithDate = (date1, date2 = date1, date3 = date1) => {

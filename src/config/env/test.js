@@ -22,5 +22,9 @@ module.exports = {
         socketOptions: { keepAlive: 1 }
       }
     }
+  },
+  api: {
+    url: 'http://0.0.0.0:3001/api',
+    location: 'http://0.0.0.0:3001/api/locations'
   }
 }

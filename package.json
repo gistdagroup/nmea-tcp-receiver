@@ -4,9 +4,14 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
+    "mockery": "^2.0.0",
     "mockgoose": "^7.1.1",
     "moment": "^2.18.1",
     "mongoose": "^4.9.4",
+    "proxyquire": "^1.8.0",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1",
+    "sinon": "^2.3.1",
     "universal-analytics": "^0.4.13",
     "winston": "^2.3.1"
   },
@@ -21,11 +26,12 @@
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
     "mocha-jenkins-reporter": "^0.3.7",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "sinon-stub-promise": "^4.0.0"
   },
   "scripts": {
     "build": "BABEL_ENV=production babel src -d dist --copy-files --ignore *.test.js",
-    "start": "npm run build && cd dist && NODE_ENV=development node app.js",
+    "start": "cd dist && NODE_ENV=development node app.js",
     "prod": "cd dist && NODE_ENV=production node app.js",
     "staging": "cd dist && NODE_ENV=staging node app.js",
     "docker": "cd dist && NODE_ENV=docker node app.js",

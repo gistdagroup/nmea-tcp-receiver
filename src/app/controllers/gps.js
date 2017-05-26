@@ -9,6 +9,8 @@ import Device from '~/app/models/device'
 import Raw from '~/app/models/raw'
 import ua from 'universal-analytics'
 import * as utils from '~/app/utils/utils'
+import locationApi from '~/app/apis/location'
+
 import moment from 'moment'
 
 const visitor = ua('UA-97830439-1')
@@ -58,13 +60,12 @@ let saveGpgga = async(data, isSaveFirstLocation) => {
   promises.push(new Gpgga(data).save())
 
   if (!isSaveFirstLocation) {
-    let vehical = await getVehicalFromDeviceId(data.deviceId)
     let hash = utils.createLocationHash(data)
     let location = await Location.findOne({hash: hash})
     if (!location) {
-      location = {type: parser.GPGGA, date: data.date, coord: data.coord, vehical: vehical, hdop: data.hdop, hash: hash}
+      location = {type: parser.GPGGA, date: data.date, coord: data.coord, hdop: data.hdop, uuid: data.deviceId}
       isSaveFirstLocation = true
-      promises.push(new Location(location).save())
+      promises.push(locationApi(location))
     }
   }
   return {promises: promises, isSaveFirstLocation: isSaveFirstLocation}
@@ -75,10 +76,6 @@ let saveGprmc = async(data) => {
 
   let promises = []
   promises.push(new Gprmc(data).save())
-
-  // let vehical = await getVehicalFromDeviceId(data.deviceId)
-  // let location = {type: parser.GPRMC, date: data.date, coord: data.coord, vehical: vehical, hdop: null}
-  // promises.push(new Location(location).save())
   return promises
 }
 

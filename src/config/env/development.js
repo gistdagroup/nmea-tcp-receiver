@@ -19,8 +19,12 @@ module.exports = {
     uri: 'mongodb://0.0.0.0:27017/gistda',
     options: {
       server: {
-        socketOptions: { keepAlive: 1 }
+        socketOptions: {keepAlive: 1}
       }
     }
+  },
+  api: {
+    url: 'http://0.0.0.0:3001/api',
+    location: 'http://0.0.0.0:3001/api/locations'
   }
 }
