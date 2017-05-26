@@ -34,6 +34,6 @@ before_deploy:
 deploy:
   provider: script
   skip_cleanup: true
-  script: ssh -o StrictHostKeyChecking=no $DEPLOY_USER@$DEPLOY_HOST -p $SSH_PORT "cd services; ./tcp.sh $TRAVIS_BUILD_NUMBER"
+  script: ssh -o StrictHostKeyChecking=no $DEPLOY_USER@$DEPLOY_HOST -p $SSH_PORT "cd services; git pull -r; ./tcp.sh $TRAVIS_BUILD_NUMBER"
   on:
     branch: master
