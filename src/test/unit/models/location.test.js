@@ -28,7 +28,7 @@ describe('Location Model', () => {
 
   it('should save location success', async() => {
     let model = await new Location(createLocationWithKey('hash')).save()
-    assert.equal(model.vehical, '1')
+    assert.equal(model.vehicle, '1')
   })
 })
 
@@ -37,7 +37,7 @@ let createLocationWithKey = (hash) => {
     type: 'GPRMC',
     date: new Date(),
     coord: {lng: 100.92753163, lat: 13.099856641666667},
-    vehical: '1',
+    vehicle: '1',
     hdop: null,
     hash: hash
   }

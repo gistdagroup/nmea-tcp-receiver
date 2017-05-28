@@ -10,7 +10,7 @@ const LocationSchema = new Schema({
     lat: {type: Number, required: true}
   },
   hdop: {type: Number},
-  vehical: {type: String},
+  vehicle: {type: String},
   hash: {type: String, required: true, unique: true}
 }, {collection: 'location'})
 

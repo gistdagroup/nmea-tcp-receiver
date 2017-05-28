@@ -79,11 +79,11 @@ let saveGprmc = async(data) => {
   return promises
 }
 
-let getVehicalFromDeviceId = async(deviceId) => {
-  let vehical = null
+let getVehicleFromDeviceId = async(deviceId) => {
+  let vehicle = null
   let device = await Device.findOne({name: deviceId})
   if (device) {
-    vehical = device.vehical
+    vehicle = device.vehicle
   }
-  return vehical
+  return vehicle
 }

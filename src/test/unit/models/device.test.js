@@ -27,7 +27,7 @@ describe('Gpgga Model', () => {
   })
 
   it('should save gpgga success', async() => {
-    await new Device({name: 'device1', vehical: 'vihecal 1'}).save()
+    await new Device({name: 'device1', vehicle: 'vihecal 1'}).save()
 
     let count = await Device.count({})
 
