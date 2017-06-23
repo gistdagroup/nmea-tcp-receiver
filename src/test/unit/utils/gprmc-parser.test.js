@@ -20,7 +20,7 @@ describe('GPRMC-parser', () => {
 
   describe('parse date', () => {
     it('should get date from message', () => {
-      let expected = new Date(Date.UTC(2017, 4, 25, 16, 11, 41, 0))
+      let expected = new Date(Date.UTC(2017, 3, 25, 16, 11, 41, 0))
 
       let data = parser.parse(message)
       let actual = data.date
@@ -110,11 +110,11 @@ describe('GPRMC-parser', () => {
 
 describe('parse Date', () => {
   it('should parse date', () => {
-    let expected = new Date(Date.UTC(2017, 4, 25, 16, 11, 41, 0))
+    let expected = new Date(Date.UTC(2017, 3, 25, 16, 11, 41, 0))
     let date = '250417'
     let time = '161141.00'
     let actual = parser.parseDate(date, time)
-
+    console.log(actual)
     assert.equal(actual.getTime(), expected.getTime())
   })
 

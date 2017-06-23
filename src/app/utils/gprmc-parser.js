@@ -32,7 +32,7 @@ export const parseDate = (date, time) => {
   if (date.length === 6 && time.length === 9) {
     try {
       let DD = parseInt(date.substring(0, 2))
-      let MM = parseInt(date.substring(2, 4))
+      let MM = parseInt(date.substring(2, 4)) - 1
       let YYYY = 2000 + parseInt(date.substring(4, 6))
 
       let HH = parseInt(time.substring(0, 2))
