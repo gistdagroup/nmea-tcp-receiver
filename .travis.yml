@@ -5,6 +5,7 @@ addons:
 language: node_js
 services:
   - docker
+  - mongodb
 node_js:
   - '7'
 env:
