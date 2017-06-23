@@ -114,7 +114,7 @@ describe('parse Date', () => {
     let date = '250417'
     let time = '161141.00'
     let actual = parser.parseDate(date, time)
-    console.log(actual)
+    
     assert.equal(actual.getTime(), expected.getTime())
   })
 
