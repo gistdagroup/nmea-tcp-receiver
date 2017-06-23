@@ -13,17 +13,23 @@ import Gpgga from '~/app/models/gpgga'
 mongoose.Promise = global.Promise
 
 describe('Gpgga Model', () => {
-  before(async () => {
-    await mockgoose.prepareStorage()
-    await mongoose.connect(config.db)
+  before((done) => {
+    mockgoose.prepareStorage().then(() => {
+      mongoose.connect(config.db)
+      done()
+    })
   })
 
-  after(async () => {
-    await mongoose.connection.close()
+  after((done) => {
+    mongoose.connection.close().then(() => {
+      done()
+    })
   })
 
-  afterEach(async () => {
-    await mockgoose.helper.reset()
+  afterEach((done) => {
+    mockgoose.helper.reset().then(() => {
+      done()
+    })
   })
 
   it('should save gpgga success', async () => {
