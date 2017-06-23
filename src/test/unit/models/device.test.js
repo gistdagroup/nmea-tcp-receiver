@@ -13,23 +13,17 @@ import Device from '~/app/models/device'
 mongoose.Promise = global.Promise
 
 describe('Gpgga Model', () => {
-  before((done) => {
-    mockgoose.prepareStorage().then(() => {
-      mongoose.connect(config.db)
-      done()
-    })
+  before(async() => {
+    await mockgoose.prepareStorage()
+    await mongoose.connect(config.db)
   })
 
-  after((done) => {
-    mongoose.connection.close().then(() => {
-      done()
-    })
+  after(async() => {
+    await mongoose.connection.close()
   })
 
-  afterEach((done) => {
-    mockgoose.helper.reset().then(() => {
-      done()
-    })
+  afterEach(async() => {
+    await mockgoose.helper.reset()
   })
 
   it('should save gpgga success', async() => {
